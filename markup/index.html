@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Project Title</title>
+	<link media="all" rel="stylesheet" href="css/main.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js" defer><\/script>')</script>
+	<script src="js/jquery.main.js" defer></script>
+</head>
+<body>
+<main>
+	<div class="tabs-wrap">
+		<h1>Tabs from links</h1>
+		<div class="btn-wrap">
+			<a href="#" data-open=".color1" class="tab-btn"><span>color1</span></a>
+			<a href="#" data-open=".color2" class="tab-btn"><span>color2</span></a>
+			<a href="#" data-open=".color3" class="tab-btn"><span>color3</span></a>
+			<a href="#" data-open=".color4" class="tab-btn"><span>color4</span></a>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab color1"><span>tab1</span></div>
+			<div class="tab color2"><span>tab2</span></div>
+			<div class="tab color3"><span>tab3</span></div>
+			<div class="tab color4"><span>tab4</span></div>
+		</div>
+	</div>
+	<div class="tabs-wrap">
+		<h1>Tabs from select</h1>
+		<div class="btn-wrap">
+			<select class="tab-btn" name="select" id="bbb">
+				<option selected disabled>color</option>
+				<option value=".color1">color1</option>
+				<option value=".color2">color2</option>
+				<option value=".color3">color3</option>
+				<option value=".color4">color4</option>
+			</select>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-wrap">
+				<div class="tab color1"><span>tab1</span></div>
+				<div class="tab color2"><span>tab2</span></div>
+				<div class="tab color3"><span>tab3</span></div>
+				<div class="tab color4"><span>tab4</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="tabs-wrap">
+		<h1>Tabs from radio-bottom</h1>
+		<div class="btn-wrap">
+			<input class="tab-btn active" type="Radio" name="color" id="id-1" value=".color1">
+			<label for="id-1">color1</label>
+
+			<input class="tab-btn" type="radio" name="color" id="id-2" value=".color2">
+			<label for="id-2">color2</label>
+
+			<input class="tab-btn" type="radio" name="color" id="id-3" value=".color3">
+			<label for="id-3">color3</label>
+
+			<input class="tab-btn" type="radio" name="color" id="id-4" value=".color4">
+			<label for="id-4">color4</label>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-wrap">
+				<div class="tab color1"><span>tab1</span></div>
+				<div class="tab color2"><span>tab2</span></div>
+				<div class="tab color3"><span>tab3</span></div>
+				<div class="tab color4"><span>tab4</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="tabs-wrap">
+		<h1>Tabs from checkbox</h1>
+		<div class="btn-wrap">
+			<input class="tab-btn" type="checkbox" id="check1" name="color" value=".color1">
+			<label for="check1">color1</label>
+			<input class="tab-btn" type="checkbox" id="check2" name="color" value=".color2">
+			<label for="check2">color2</label>
+			<input class="tab-btn" type="checkbox" id="check3" name="color" value=".color3">
+			<label for="check3">color3</label>
+			<input class="tab-btn" type="checkbox" id="check4" name="color" value=".color4">
+			<label for="check4">color4</label>
+		</div>
+		<div class="tab-wrap">
+			<div class="tab-wrap">
+				<div class="tab color1"><span>tab1</span></div>
+				<div class="tab color2"><span>tab2</span></div>
+				<div class="tab color3"><span>tab3</span></div>
+				<div class="tab color4"><span>tab4</span></div>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+</html>
