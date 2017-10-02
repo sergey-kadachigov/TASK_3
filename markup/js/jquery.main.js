@@ -8,7 +8,8 @@ function initMyTabs() {
 		onInit: function (self) {
 			if (($(self.btn)[0].tagName === "SELECT")) {
 				self.btn.on('change', function () {
-					self.openTab($(this));
+					self.thisBtn = $(this);
+					self.openTab();
 				});
 			}
 		}
@@ -53,37 +54,38 @@ function initFormStaller() {
 		attachEvents: function () {
 			var self = this;
 			this.btn.on(this.options.btnEvent, function () {
-				self.clickAction($(this));
+				self.thisBtn = $(this);
+				self.clickAction();
 			});
 		},
-		openTab: function (item) {
+		openTab: function () {
 			this.allTabs.removeClass(this.options.activeClass);
-			this.tabWrap.find(item.attr('href') || item.val()).addClass(this.options.activeClass);
+			this.tabWrap.find(this.thisBtn.attr('href') || this.thisBtn.val()).addClass(this.options.activeClass);
 		},
-		closeTab: function (item) {
-			item.removeClass(this.options.activeClass);
+		closeTab: function () {
+			this.thisBtn.removeClass(this.options.activeClass);
 			this.allTabs.removeClass(this.options.activeClass);
 		},
-		clickAction: function (item) {
+		clickAction: function () {
 			event.preventDefault();
 			var self = this;
 			var check = 'checked';
-			var thisBtn = item;
+			var thisBtn = this.thisBtn;
 
 			if (thisBtn.hasClass(self.options.activeClass)) {
 				setTimeout(function () {
 					thisBtn.prop(check, false);
 				});
-				item.removeClass(self.options.activeClass);
-				self.closeTab(thisBtn);
+				thisBtn.removeClass(self.options.activeClass);
+				self.closeTab();
 			} else {
 				self.btn.prop(check, false);
 				setTimeout(function () {
 					thisBtn.prop(check, true);
 				});
 				self.btn.removeClass(self.options.activeClass);
-				item.addClass(self.options.activeClass);
-				self.openTab(thisBtn);
+				thisBtn.addClass(self.options.activeClass);
+				self.openTab();
 			}
 		},
 		destroy: function () {
