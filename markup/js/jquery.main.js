@@ -30,7 +30,7 @@ function initFormStaller() {
 			activeClass: 'active',
 			allTabs: '.tab',
 			selectTab: '',
-			btnEvent: 'click.btn',
+			btnEvent: 'click.btn'
 		}, options);
 		this.init();
 	};
