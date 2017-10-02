@@ -4,7 +4,15 @@ jQuery(function () {
 });
 
 function initMyTabs() {
-	jQuery('.tabs-wrap').myTabs();
+	jQuery('.tabs-wrap').myTabs({
+		onInit: function (self) {
+			if (($(self.btn)[0].tagName === self.options.selectTagName)) {
+				self.btn.on(self.options.selectEvent, function () {
+					self.openTab($(this));
+				});
+			}
+		}
+	});
 };
 
 function initFormStaller() {
@@ -31,10 +39,12 @@ function initFormStaller() {
 
 	MyTabs.prototype = {
 		init: function () {
+
 			if (this.options.holder) {
 				this.findElements();
 				this.attachEvents();
 			}
+			this.options.onInit(this);
 		},
 		findElements: function () {
 			this.holder = $(this.options.holder);
@@ -44,15 +54,9 @@ function initFormStaller() {
 		},
 		attachEvents: function () {
 			var self = this;
-			if (($(this.btn)[0].tagName === this.options.selectTagName)) {
-				this.btn.on(this.options.selectEvent, function () {
-					self.openTab($(this));
-				});
-			} else {
-				this.btn.on(this.options.btnEvent, function (e) {
-					self.clickAction($(this));
-				});
-			}
+			this.btn.on(this.options.btnEvent, function (e) {
+				self.clickAction($(this));
+			});
 		},
 		openTab: function (item) {
 			this.allTabs.removeClass(this.options.activeClass);
@@ -85,7 +89,7 @@ function initFormStaller() {
 			}
 		},
 		destroy: function () {
-			this.btn.off(this.options.selectEvent+','+self.options.btnEvent);
+			this.btn.off(this.options.selectEvent + ',' + self.options.btnEvent);
 		}
 	};
 
