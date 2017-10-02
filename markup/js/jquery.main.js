@@ -79,6 +79,7 @@ function initFormStaller() {
 				setTimeout(function () {
 					thisBtn.prop(check, true);
 				});
+				self.btn.removeClass(self.options.activeClass);
 				item.addClass(self.options.activeClass);
 				self.openTab(thisBtn);
 			}
