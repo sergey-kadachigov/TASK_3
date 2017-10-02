@@ -6,8 +6,8 @@ jQuery(function () {
 function initMyTabs() {
 	jQuery('.tabs-wrap').myTabs({
 		onInit: function (self) {
-			if (($(self.btn)[0].tagName === self.options.selectTagName)) {
-				self.btn.on(self.options.selectEvent, function () {
+			if (($(self.btn)[0].tagName === "SELECT")) {
+				self.btn.on('change', function () {
 					self.openTab($(this));
 				});
 			}
@@ -31,8 +31,6 @@ function initFormStaller() {
 			allTabs: '.tab',
 			selectTab: '',
 			btnEvent: 'click.btn',
-			selectEvent: 'change.btn',
-			selectTagName: 'SELECT'
 		}, options);
 		this.init();
 	};
@@ -54,7 +52,7 @@ function initFormStaller() {
 		},
 		attachEvents: function () {
 			var self = this;
-			this.btn.on(this.options.btnEvent, function (e) {
+			this.btn.on(this.options.btnEvent, function () {
 				self.clickAction($(this));
 			});
 		},
