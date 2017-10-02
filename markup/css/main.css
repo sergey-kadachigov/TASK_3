@@ -517,6 +517,8 @@ h1 {
 
 .tabs-wrap {
   text-align: center; }
+  .tabs-wrap .btn-wrap li {
+    display: inline-block; }
   .tabs-wrap .btn-wrap a {
     display: inline-block;
     padding: 10px 20px;
@@ -689,7 +691,7 @@ h1 {
               transition: .3s;
       top: 5px;
       left: 8px; }
-    .tabs-wrap .btn-wrap .jq-checkbox.check:before {
+    .tabs-wrap .btn-wrap .jq-checkbox.checked:before {
       -webkit-transform: scale(1);
           -ms-transform: scale(1);
               transform: scale(1); }
@@ -718,6 +720,9 @@ h1 {
         height: 200px; }
       .tabs-wrap .tab-wrap .tab.active {
         display: inline-block; }
+
+ul {
+  list-style: none; }
 
 .jq-checkbox,
 .jq-radio {

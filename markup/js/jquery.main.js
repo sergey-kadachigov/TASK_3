@@ -8,7 +8,7 @@ function initMyTabs() {
 };
 
 function initFormStaller() {
-	jQuery('input, select').styler();
+	jQuery('select').styler();
 };
 
 //initOpenPanel
@@ -21,7 +21,10 @@ function initFormStaller() {
 			btn: '.tab-btn',
 			activeClass: 'active',
 			allTabs: '.tab',
-			select: 'select'
+			selectTab: '',
+			btnEvent: 'click.btn',
+			selectEvent: 'change.btn',
+			selectTagName: 'SELECT'
 		}, options);
 		this.init();
 	};
@@ -31,7 +34,6 @@ function initFormStaller() {
 			if (this.options.holder) {
 				this.findElements();
 				this.attachEvents();
-				this.initActive();
 			}
 		},
 		findElements: function () {
@@ -39,83 +41,50 @@ function initFormStaller() {
 			this.btn = this.holder.find(this.options.btn);
 			this.tabWrap = this.holder.find(this.options.tabWrap);
 			this.allTabs = this.tabWrap.find(this.options.allTabs);
-
 		},
 		attachEvents: function () {
 			var self = this;
-			var btn = $(this.btn)[0].tagName.toLowerCase();
-			switch (btn) {
-				case 'a':
-					self.activeA();
-					break;
-				case self.options.select:
-					self.activeSelect();
-					break;
-				case 'input':
-					switch ($(self.btn[0]).attr('type').toLowerCase()) {
-						case 'checkbox':
-							self.activeCheckBox();
-							break;
-						case 'radio':
-							self.activeRadioBottom();
-							break;
-						default:
-							console.log('Error. Wrong btn class')
-					}
-					break;
-				default:
-					console.log('Error. Wrong btn class')
+			if (($(this.btn)[0].tagName === this.options.selectTagName)) {
+				this.btn.on(this.options.selectEvent, function () {
+					self.openTab($(this));
+				});
+			} else {
+				this.btn.on(this.options.btnEvent, function (e) {
+					self.clickAction($(this));
+				});
 			}
 		},
-		initActive: function () {
-			$(this.allTabs[0]).addClass(this.options.activeClass);
-			$(this.btn[0]).addClass(this.options.activeClass);
+		openTab: function (item) {
+			this.allTabs.removeClass(this.options.activeClass);
+			this.tabWrap.find(item.attr('href') || item.val()).addClass(this.options.activeClass);
 		},
-		activeA: function () {
-			var self = this;
-			this.btn.on('click.btn', function () {
-				self.btn.removeClass(self.options.activeClass);
-				$(this).addClass(self.options.activeClass);
-				self.allTabs.removeClass(self.options.activeClass);
-				self.tabWrap.find($(this).data('open')).addClass(self.options.activeClass);
-			})
+		closeTab: function (item) {
+			item.removeClass(this.options.activeClass);
+			this.allTabs.removeClass(this.options.activeClass);
 		},
-		activeSelect: function () {
+		clickAction: function (item) {
+			event.preventDefault();
 			var self = this;
-			var select = $(this.options.btnWrap).find(this.options.select + this.options.btn);
-			select.on('change.btn', function () {
-				self.allTabs.removeClass(self.options.activeClass);
-				self.tabWrap.find(select.val()).addClass(self.options.activeClass);
-			})
+			var check = 'checked';
+			var thisBtn = item;
 
-		},
-		activeRadioBottom: function () {
-			var self = this;
-			setTimeout(function () {
-				$(self.btn[0]).trigger('click');
-			}, 10);
-			self.btn.on('change.btn', function () {
-				self.allTabs.removeClass(self.options.activeClass);
-				self.tabWrap.find($(this).val()).addClass(self.options.activeClass);
-			});
-
-		},
-		activeCheckBox: function () {
-			var self = this;
-			setTimeout(function () {
-				$(self.btn[0]).trigger('click');
-			}, 10);
-			self.btn.on('change.btn', function () {
-				var thisBtn = $(this);
-				var activeClass = 'check';
-				$(self.options.btnWrap).find('.jq-checkbox').removeClass(activeClass);
-				thisBtn.parent('.jq-checkbox').addClass(activeClass);
-				self.allTabs.removeClass(self.options.activeClass);
-				self.tabWrap.find(thisBtn.val()).addClass(self.options.activeClass);
-			});
+			if (thisBtn.hasClass(self.options.activeClass)) {
+				setTimeout(function () {
+					thisBtn.prop(check, false);
+				});
+				item.removeClass(self.options.activeClass);
+				self.closeTab(thisBtn);
+			} else {
+				self.btn.prop(check, false);
+				setTimeout(function () {
+					thisBtn.prop(check, true);
+				});
+				item.addClass(self.options.activeClass);
+				self.openTab(thisBtn);
+			}
 		},
 		destroy: function () {
-			this.btn.off('change.btn , click.btn');
+			this.btn.off(this.options.selectEvent+','+self.options.btnEvent);
 		}
 	};
 
