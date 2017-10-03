@@ -4,7 +4,8 @@ jQuery(function () {
 });
 
 function initMyTabs() {
-	jQuery('.tabs-wrap').myTabs({
+	jQuery('.tabs-link-wrap').myTabs({});
+	jQuery('.tabs-select-wrap').myTabs({
 		onInit: function (self) {
 			if (($(self.btn)[0].tagName === "SELECT")) {
 				self.btn.on('change', function () {
@@ -14,7 +15,12 @@ function initMyTabs() {
 			}
 		}
 	});
+	jQuery('.tabs-check-wrap , .tabs-radio-wrap').myTabs({
+		btnEvent: 'change'
+	});
 };
+
+//
 
 function initFormStaller() {
 	jQuery('select').styler();
@@ -25,13 +31,20 @@ function initFormStaller() {
 	function MyTabs(options) {
 		this.options = $.extend({
 			holder: '.tabs-wrap',
-			btnWrap: '.btn-wrap',
-			tabWrap: '.tab-wrap',
-			btn: '.tab-btn',
-			activeClass: 'active',
+
 			allTabs: '.tab',
-			selectTab: '',
-			btnEvent: 'click.btn'
+			tabWrap: '.tab-wrap',
+
+			btnWrap: '.btn-wrap',
+			btn: '.tab-btn',
+
+			activeClass: 'active',
+			check: 'checked',
+
+			btnEvent: 'click',
+			btnTabName: 'href',
+			btnIndex: ''
+
 		}, options);
 		this.init();
 	};
@@ -42,11 +55,13 @@ function initFormStaller() {
 			if (this.options.holder) {
 				this.findElements();
 				this.attachEvents();
+				this.startTab();
+				this.myCallback('onInit', this);
 			}
-			this.options.onInit(this);
 		},
 		findElements: function () {
 			this.holder = $(this.options.holder);
+			this.btnWrap = this.holder.find(this.options.btnWrap);
 			this.btn = this.holder.find(this.options.btn);
 			this.tabWrap = this.holder.find(this.options.tabWrap);
 			this.allTabs = this.tabWrap.find(this.options.allTabs);
@@ -54,6 +69,7 @@ function initFormStaller() {
 		attachEvents: function () {
 			var self = this;
 			this.btn.on(this.options.btnEvent, function () {
+				if (self.options.btnTabName === 'href') event.preventDefault();
 				self.thisBtn = $(this);
 				self.clickAction();
 			});
@@ -67,29 +83,39 @@ function initFormStaller() {
 			this.allTabs.removeClass(this.options.activeClass);
 		},
 		clickAction: function () {
-			event.preventDefault();
-			var self = this;
-			var check = 'checked';
-			var thisBtn = this.thisBtn;
 
-			if (thisBtn.hasClass(self.options.activeClass)) {
-				setTimeout(function () {
-					thisBtn.prop(check, false);
-				});
-				thisBtn.removeClass(self.options.activeClass);
-				self.closeTab();
+			var index = this.btn.index(this.thisBtn);
+
+			if (this.options.btnIndex === index) {
+				this.closeTab();
+				this.thisBtn.addClass(this.options.activeClass);
+				this.options.btnIndex = '';
 			} else {
-				self.btn.prop(check, false);
-				setTimeout(function () {
-					thisBtn.prop(check, true);
-				});
-				self.btn.removeClass(self.options.activeClass);
-				thisBtn.addClass(self.options.activeClass);
-				self.openTab();
+				this.openTab();
+				this.btn.removeClass(this.options.activeClass).prop(this.options.check, false);
+				this.thisBtn.addClass(this.options.activeClass).prop(this.options.check, true);
+				this.options.btnIndex = index;
+			}
+		},
+		startTab: function () {
+
+			var ifActive = this.btnWrap.find('.' + this.options.activeClass);
+
+			if (ifActive.length === 1) {
+				ifActive.hasClass(this.options.btn.replace('.', '')) ? this.thisBtn = ifActive : this.thisBtn = ifActive.find(this.btn);
+				this.thisBtn.addClass(this.options.activeClass).prop(this.options.check, true);
+				this.openTab();
 			}
 		},
 		destroy: function () {
-			this.btn.off(this.options.selectEvent + ',' + self.options.btnEvent);
+			this.btn.off(self.options.btnEvent);
+		},
+		myCallback: function (name) {
+			if (typeof this.options[name] === 'function') {
+				var args = Array.prototype.slice.call(arguments);
+				args.shift();
+				this.options[name].apply(this, args);
+			}
 		}
 	};
 
