@@ -4,7 +4,9 @@ jQuery(function () {
 });
 
 function initMyTabs() {
-	jQuery('.tabs-link-wrap').myTabs({});
+	jQuery('.tabs-link-wrap').myTabs({
+		// activeBtn: 'li'
+	});
 	jQuery('.tabs-select-wrap').myTabs({
 		onInit: function (self) {
 			if (($(self.btn)[0].tagName === "SELECT")) {
@@ -15,7 +17,10 @@ function initMyTabs() {
 			}
 		}
 	});
-	jQuery('.tabs-check-wrap , .tabs-radio-wrap').myTabs({
+	jQuery('.tabs-radio-wrap').myTabs({
+		btnEvent: 'change'
+	});
+	jQuery('.tabs-check-wrap').myTabs({
 		btnEvent: 'change'
 	});
 };
@@ -37,6 +42,7 @@ function initFormStaller() {
 
 			btnWrap: '.btn-wrap',
 			btn: '.tab-btn',
+			activeBtn : '.tab-btn',
 
 			activeClass: 'active',
 			check: 'checked',
@@ -65,6 +71,7 @@ function initFormStaller() {
 			this.btn = this.holder.find(this.options.btn);
 			this.tabWrap = this.holder.find(this.options.tabWrap);
 			this.allTabs = this.tabWrap.find(this.options.allTabs);
+			this.parentBool = !(this.options.btn === this.options.activeBtn);
 		},
 		attachEvents: function () {
 			var self = this;
@@ -84,16 +91,31 @@ function initFormStaller() {
 		},
 		clickAction: function () {
 
+			var activeBtn;
+			var allActiveBtn;
+
 			var index = this.btn.index(this.thisBtn);
+
+			if(this.parentBool){
+				activeBtn = this.thisBtn.parent(this.options.activeBtn);
+				allActiveBtn = this.holder.find(this.options.activeBtn);
+			}
 
 			if (this.options.btnIndex === index) {
 				this.closeTab();
-				this.thisBtn.addClass(this.options.activeClass);
+				this.parentBool ? activeBtn.removeClass(this.options.activeClass) : this.thisBtn.removeClass(this.options.activeClass);
 				this.options.btnIndex = '';
 			} else {
 				this.openTab();
-				this.btn.removeClass(this.options.activeClass).prop(this.options.check, false);
-				this.thisBtn.addClass(this.options.activeClass).prop(this.options.check, true);
+				if(this.parentBool){
+					allActiveBtn.removeClass(this.options.activeClass);
+					activeBtn.addClass(this.options.activeClass);
+				} else {
+					this.btn.removeClass(this.options.activeClass);
+					this.thisBtn.addClass(this.options.activeClass).prop(this.options.check, true);
+				}
+				this.btn.prop(this.options.check, false);
+				this.thisBtn.prop(this.options.check, true);
 				this.options.btnIndex = index;
 			}
 		},
