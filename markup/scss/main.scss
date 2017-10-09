@@ -61,11 +61,84 @@ h1 {
 
 .tabs-wrap {
 	text-align: center;
+	.jq-selectbox {
+		font-size: 0;
+		.jq-selectbox__select-text {
+			width: 200px;
+			line-height: 1.2;
+			display: inline-block;
+			padding: 10px 20px;
+			text-decoration: none;
+			font-weight: bold;
+			letter-spacing: 2px;
+			font-size: 20px;
+			color: #262231;
+			border-radius: 5px;
+			transition: .5s;
+			position: relative;
+			overflow: hidden;
+			text-transform: uppercase;
+			@include bg-grad;
+		}
+		.jq-selectbox__dropdown {
+			top: 100%;
+			left: 0;
+			right: 0;
+			font-size: 0;
+			ul {
+
+				width: 200px;
+				line-height: 1.2;
+				display: inline-block;
+				text-decoration: none;
+				font-weight: bold;
+				letter-spacing: 2px;
+				font-size: 20px;
+				color: #262231;
+				border-radius: 5px;
+				transition: .5s;
+				position: relative;
+				overflow: hidden;
+				text-transform: uppercase;
+				margin: 0;
+				padding: 0;
+				@include bg-grad;
+				@include bg-grad;
+				li {
+					cursor: pointer;
+					padding: 10px 20px;
+					transition: .3s;
+					&:hover {
+						color: $colorLight;
+					}
+					&.disabled {
+						display: none;
+					}
+				}
+			}
+		}
+		.jq-selectbox__trigger {
+			position: absolute;
+			right: 10px;
+			top: calc(50%);
+			border: 5px solid transparent;
+			border-top-color: $colorDark;
+		}
+
+		&.opened {
+			.jq-selectbox__trigger {
+				top: calc(50% - 7px);
+				border-top-color: transparent;
+				border-bottom-color: $colorDark;
+			}
+		}
+	}
+
 	.btn-wrap {
 
-			li{
-				display: inline-block;
-			}
+		li {
+			display: inline-block;
+		}
 
 		a {
 			display: inline-block;
@@ -111,79 +184,7 @@ h1 {
 				}
 			}
 		}
-		.jq-selectbox {
-			font-size: 0;
-			.jq-selectbox__select-text {
-				width: 200px;
-				line-height: 1.2;
-				display: inline-block;
-				padding: 10px 20px;
-				text-decoration: none;
-				font-weight: bold;
-				letter-spacing: 2px;
-				font-size: 20px;
-				color: #262231;
-				border-radius: 5px;
-				transition: .5s;
-				position: relative;
-				overflow: hidden;
-				text-transform: uppercase;
-				@include bg-grad;
-			}
-			.jq-selectbox__dropdown {
-				top: 100%;
-				left: 0;
-				right: 0;
-				font-size: 0;
-				ul {
-
-					width: 200px;
-					line-height: 1.2;
-					display: inline-block;
-					text-decoration: none;
-					font-weight: bold;
-					letter-spacing: 2px;
-					font-size: 20px;
-					color: #262231;
-					border-radius: 5px;
-					transition: .5s;
-					position: relative;
-					overflow: hidden;
-					text-transform: uppercase;
-					margin: 0;
-					padding: 0;
-					@include bg-grad;
-					@include bg-grad;
-					li {
-						cursor: pointer;
-						padding: 10px 20px;
-						transition: .3s;
-						&:hover {
-							color: $colorLight;
-						}
-						&.disabled {
-							display: none;
-						}
-					}
-				}
-			}
-			.jq-selectbox__trigger {
-				position: absolute;
-				right: 10px;
-				top: calc(50%);
-				border: 5px solid transparent;
-				border-top-color: $colorDark;
-			}
-
-			&.opened {
-				.jq-selectbox__trigger {
-					top: calc(50% - 7px);
-					border-top-color: transparent;
-					border-bottom-color: $colorDark;
-				}
-			}
-		}
-		.jq-radio{
+		.jq-radio {
 			height: 20px;
 			width: 20px;
 			top: -16px;
@@ -193,29 +194,29 @@ h1 {
 			@include bg-grad;
 			border-radius: 50%;
 
-			&+label{
+			& + label {
 				cursor: pointer;
 			}
 
-			&:before{
+			&:before {
 				content: '';
 				position: absolute;
 				height: 10px;
 				width: 10px;
 				border-radius: 50%;
 				background: $colorDark;
-				transform:scale(0);
+				transform: scale(0);
 				transition: .3s;
 				top: 5px;
 				left: 8px;
 			}
-			&.checked{
-				&:before{
-					transform:scale(1);
+			&.checked {
+				&:before {
+					transform: scale(1);
 				}
 			}
 		}
-		.jq-checkbox{
+		.jq-checkbox {
 			height: 20px;
 			width: 20px;
 			top: -16px;
@@ -225,25 +226,25 @@ h1 {
 			@include bg-grad;
 			border-radius: 50%;
 
-			&+label{
+			& + label {
 				cursor: pointer;
 			}
 
-			&:before{
+			&:before {
 				content: '';
 				position: absolute;
 				height: 10px;
 				width: 10px;
 				border-radius: 50%;
 				background: $colorDark;
-				transform:scale(0);
+				transform: scale(0);
 				transition: .3s;
 				top: 5px;
 				left: 8px;
 			}
-			&.checked{
-				&:before{
-					transform:scale(1);
+			&.checked {
+				&:before {
+					transform: scale(1);
 				}
 			}
 		}
@@ -284,7 +285,7 @@ h1 {
 	}
 }
 
-ul{
+ul {
 	list-style: none;
 
 }

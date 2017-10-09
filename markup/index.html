@@ -1,96 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Project Title</title>
-	<link media="all" rel="stylesheet" href="css/main.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js" defer><\/script>')</script>
-	<script src="js/jquery.main.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Title</title>
+    <link media="all" rel="stylesheet" href="css/main.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.12.4.min.js" defer><\/script>')</script>
+    <script src="js/jquery.main.js" defer></script>
 </head>
 <body>
 <main>
-	<div class="tabs-wrap tabs-link-wrap">
-		<h1>Tabs from links</h1>
-		<ul class="btn-wrap">
-			<li><a href="#color1" class="tab-btn"><span>color1</span></a></li>
-			<li><a href="#color2" class="tab-btn"><span>color2</span></a></li>
-			<li><a href="#color3" class="tab-btn"><span>color3</span></a></li>
-			<li><a href="#color4" class="tab-btn"><span>color4</span></a></li>
-		</ul>
-		<div class="tab-wrap">
-			<div class="tab" id="color1"><span>tab1</span></div>
-			<div class="tab" id="color2"><span>tab2</span></div>
-			<div class="tab" id="color3"><span>tab3</span></div>
-			<div class="tab" id="color4"><span>tab4</span></div>
-		</div>
-	</div>
-	<div class="tabs-wrap tabs-select-wrap">
-		<h1>Tabs from select</h1>
-		<div class="btn-wrap">
-			<select class="tab-btn" name="select" id="bbb">
-				<option selected disabled>color</option>
-				<option value="#color5">color1</option>
-				<option value="#color6">color2</option>
-				<option value="#color7">color3</option>
-				<option value="#color8">color4</option>
-			</select>
-		</div>
-		<div class="tab-wrap">
-			<div class="tab-wrap">
-				<div class="tab" id="color5"><span>tab1</span></div>
-				<div class="tab" id="color6"><span>tab2</span></div>
-				<div class="tab" id="color7"><span>tab3</span></div>
-				<div class="tab" id="color8"><span>tab4</span></div>
-			</div>
-		</div>
-	</div>
-	<div class="tabs-wrap tabs-radio-wrap">
-		<h1>Tabs from radio-bottom</h1>
-		<div class="btn-wrap">
-			<input class="tab-btn" type="Radio" name="color" id="id-1" value="#color9">
-			<label for="id-1">color1</label>
+    <div class="tabs-wrap tabs-link-wrap">
+        <h1>Tabs from links</h1>
+        <ul class="btn-wrap">
+            <li><a href="#color1" class="tab-btn"><span>color1</span></a></li>
+            <li><a href="#color2" class="tab-btn"><span>color2</span></a></li>
+            <li><a href="#color3" class="tab-btn"><span>color3</span></a></li>
+            <li><a href="#color4" class="tab-btn"><span>color4</span></a></li>
+        </ul>
+        <select class="tab-btn" name="select" id="select">
+            <option selected disabled>color</option>
+            <option value="#color5">color1</option>
+            <option value="#color6">color2</option>
+            <option value="#color7">color3</option>
+            <option value="#color8">color4</option>
+        </select>
+        <div class="tab-wrap">
+            <div class="tab" id="color1"><span>tab1</span></div>
+            <div class="tab" id="color2"><span>tab2</span></div>
+            <div class="tab" id="color3"><span>tab3</span></div>
+            <div class="tab" id="color4"><span>tab4</span></div>
+        </div>
+    </div>
+    <div class="tabs-wrap tabs-radio-wrap">
+        <h1>Tabs from radio-bottom</h1>
+        <div class="btn-wrap">
+            <input class="tab-btn" type="Radio" name="color" id="id-1" value="#color9">
+            <label for="id-1">color1</label>
 
-			<input class="tab-btn" type="radio" name="color" id="id-2" value="#color10">
-			<label for="id-2">color2</label>
+            <input class="tab-btn" type="radio" name="color" id="id-2" value="#color10">
+            <label for="id-2">color2</label>
 
-			<input class="tab-btn" type="radio" name="color" id="id-3" value="#color11">
-			<label for="id-3">color3</label>
+            <input class="tab-btn" type="radio" name="color" id="id-3" value="#color11">
+            <label for="id-3">color3</label>
 
-			<input class="tab-btn" type="radio" name="color" id="id-4" value="#color12">
-			<label for="id-4">color4</label>
-		</div>
-		<div class="tab-wrap">
-			<div class="tab-wrap">
-				<div class="tab" id="color9"><span>tab1</span></div>
-				<div class="tab" id="color10"><span>tab2</span></div>
-				<div class="tab" id="color11"><span>tab3</span></div>
-				<div class="tab" id="color12"><span>tab4</span></div>
-			</div>
-		</div>
-	</div>
-	<div class="tabs-wrap tabs-check-wrap">
-		<h1>Tabs from checkbox</h1>
-		<div class="btn-wrap">
-			<input class="tab-btn" type="checkbox" id="check1" name="color" value="#color13">
-			<label for="check1">color1</label>
-			<input class="tab-btn" type="checkbox" id="check2" name="color" value="#color14">
-			<label for="check2">color2</label>
-			<input class="tab-btn" type="checkbox" id="check3" name="color" value="#color15">
-			<label for="check3">color3</label>
-			<input class="tab-btn" type="checkbox" id="check4" name="color" value="#color16">
-			<label for="check4">color4</label>
-		</div>
-		<div class="tab-wrap">
-			<div class="tab-wrap">
-				<div class="tab" id="color13"><span>tab1</span></div>
-				<div class="tab" id="color14"><span>tab2</span></div>
-				<div class="tab" id="color15"><span>tab3</span></div>
-				<div class="tab" id="color16"><span>tab4</span></div>
-			</div>
-		</div>
-	</div>
+            <input class="tab-btn" type="radio" name="color" id="id-4" value="#color12">
+            <label for="id-4">color4</label>
+        </div>
+        <div class="tab-wrap">
+            <div class="tab-wrap">
+                <div class="tab" id="color9"><span>tab1</span></div>
+                <div class="tab" id="color10"><span>tab2</span></div>
+                <div class="tab" id="color11"><span>tab3</span></div>
+                <div class="tab" id="color12"><span>tab4</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="tabs-wrap tabs-check-wrap">
+        <h1>Tabs from checkbox</h1>
+        <div class="btn-wrap">
+            <input class="tab-btn" type="checkbox" id="check1" name="color" value="#color13">
+            <label for="check1">color1</label>
+            <input class="tab-btn" type="checkbox" id="check2" name="color" value="#color14">
+            <label for="check2">color2</label>
+            <input class="tab-btn" type="checkbox" id="check3" name="color" value="#color15">
+            <label for="check3">color3</label>
+            <input class="tab-btn" type="checkbox" id="check4" name="color" value="#color16">
+            <label for="check4">color4</label>
+        </div>
+        <div class="tab-wrap">
+            <div class="tab-wrap">
+                <div class="tab" id="color13"><span>tab1</span></div>
+                <div class="tab" id="color14"><span>tab2</span></div>
+                <div class="tab" id="color15"><span>tab3</span></div>
+                <div class="tab" id="color16"><span>tab4</span></div>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 </html>

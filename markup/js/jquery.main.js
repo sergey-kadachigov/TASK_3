@@ -5,13 +5,12 @@ jQuery(function () {
 
 function initMyTabs() {
     jQuery('.tabs-link-wrap').myTabs({
-        activeBtn: 'li'
-    });
-    jQuery('.tabs-select-wrap').myTabs({
-        onInit: function (self) {
-            self.btns.on('change', function () {
-                self.openTab();
-            });
+        activeBtn: 'li',
+        onInit:function (self) {
+            jQuery('#select').on('change',function () {
+                self.thisBtnIndex = this.selectedIndex - 1;
+                self.clickAction();
+            })
         }
     });
     jQuery('.tabs-radio-wrap').myTabs({
@@ -22,7 +21,6 @@ function initMyTabs() {
     });
 };
 
-//
 
 function initFormStaller() {
     jQuery('select').styler();
