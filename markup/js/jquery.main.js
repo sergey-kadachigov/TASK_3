@@ -18,7 +18,6 @@ function initMyTabs() {
             var select = jQuery('.jq-selectbox__dropdown li');
             select.removeClass('selected sel');
             jQuery(select[self.thisBtnIndex+1]).addClass('selected sel');
-
             jQuery('.jq-selectbox__select-text').text(jQuery(self.btns[self.thisBtnIndex]).text());
         }
 
