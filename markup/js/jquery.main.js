@@ -4,14 +4,24 @@ jQuery(function () {
 });
 
 function initMyTabs() {
-    jQuery('.tabs-link-wrap').myTabs({
+    var select =
+        jQuery('.tabs-link-wrap').myTabs({
         activeBtn: 'li',
         onInit:function (self) {
             jQuery('#select').on('change',function () {
                 self.thisBtnIndex = this.selectedIndex - 1;
+                self.activeTab = jQuery(self.tabWrap.find(jQuery(this).val()));
                 self.clickAction();
             })
+        },
+        onChange:function (self) {
+            var select = jQuery('.jq-selectbox__dropdown li');
+            select.removeClass('selected sel');
+            jQuery(select[self.thisBtnIndex+1]).addClass('selected sel');
+
+            jQuery('.jq-selectbox__select-text').text(jQuery(self.btns[self.thisBtnIndex]).text());
         }
+
     });
     jQuery('.tabs-radio-wrap').myTabs({
         btnEvent: 'change'
@@ -49,10 +59,8 @@ function initFormStaller() {
         }, options);
         this.init();
     };
-
     MyTabs.prototype = {
         init: function () {
-
             if (this.options.holder) {
                 this.findElements();
                 this.attachEvents();
@@ -61,49 +69,49 @@ function initFormStaller() {
             }
         },
         findElements: function () {
-
             this.holder = $(this.options.holder);
             this.btnWrap = this.holder.find(this.options.btnWrap);
             this.btns = this.holder.find(this.options.btn);
             this.tabWrap = this.holder.find(this.options.tabWrap);
             this.allTabs = this.tabWrap.find(this.options.allTabs);
+            this.activeItem = this.searchActive();
             (this.options.btn === this.options.activeBtn) ?
                 this.activeItem = this.btns :
                 this.activeItem = this.btns.parent(this.options.activeBtn);
         },
         attachEvents: function () {
-
             var self = this;
-
             this.btns.on(this.options.btnEvent, function () {
 
                 if (self.options.btnTabName === 'href') event.preventDefault();
 
                 self.thisBtnIndex = self.btns.index($(this));
+                self.activeTab = self.tabWrap.find($(self.btns[self.thisBtnIndex]).attr('href') || $(self.btns[self.thisBtnIndex]).val());
+                self.myCallback('onChange', self);
                 self.clickAction();
             });
         },
+        searchActive: function () {
+            if(this.options.btn === this.options.activeBtn){
+                return this.btns;
+            } else {
+                return this.btns.parent(this.options.activeBtn)
+            }
+        },
         openTab: function () {
-
             this.allTabs.removeClass(this.options.activeClass);
-            this.tabWrap.find($(this.btns[this.thisBtnIndex]).attr('href') || $(this.btns[this.thisBtnIndex]).val()).addClass(this.options.activeClass);
+            $(this.activeTab).addClass(this.options.activeClass);
         },
         closeTab: function () {
-
             this.activeItem.removeClass(this.options.activeClass);
             this.allTabs.removeClass(this.options.activeClass);
         },
         clickAction: function () {
-
-
             if (this.options.btnIndex === this.thisBtnIndex) {
-
                 this.closeTab();
                 $(this.activeItem[this.thisBtnIndex]).removeClass(this.options.activeClass);
                 this.options.btnIndex = '';
-
             } else {
-
                 this.openTab();
                 this.activeItem.removeClass(this.options.activeClass);
                 $(this.activeItem[this.thisBtnIndex]).addClass(this.options.activeClass);
@@ -112,26 +120,22 @@ function initFormStaller() {
             }
         },
         startTab: function () {
-
             this.thisBtnIndex = this.activeItem.index(this.holder.find('.' + this.options.activeClass));
             this.openTab();
         },
-        destroy: function () {
-
-            this.btns.off(self.options.btnEvent);
-            this.activeItem.removeClass(this.options.activeClass);
-            this.allTabs.removeClass(this.options.activeClass);
-        },
         myCallback: function (name) {
-
             if (typeof this.options[name] === 'function') {
                 var args = Array.prototype.slice.call(arguments);
                 args.shift();
                 this.options[name].apply(this, args);
             }
+        },
+        destroy: function () {
+            this.btns.off(self.options.btnEvent);
+            this.activeItem.removeClass(this.options.activeClass);
+            this.allTabs.removeClass(this.options.activeClass);
         }
     };
-
     // jquery plugin
     $.fn.myTabs = function (opt) {
         return this.each(function () {
