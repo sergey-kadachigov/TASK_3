@@ -82,7 +82,7 @@ function initMyTabs() {
             this.allTabs.removeClass(this.options.activeClass);
             $(this.activeTab).addClass(this.options.activeClass);
             $(this.btns.prop(this.options.check, false));
-            if(this.options.currentIndex+1) $(this.btns.get(this.options.currentIndex)).prop(this.options.check, true);
+            if (this.options.currentIndex + 1) $(this.btns.get(this.options.currentIndex)).prop(this.options.check, true);
         },
         closeTab: function () {
             this.activeItems.removeClass(this.options.activeClass);
@@ -104,6 +104,7 @@ function initMyTabs() {
             this.btns.off(self.options.btnEvent);
             this.activeItems.removeClass(this.options.activeClass);
             this.allTabs.removeClass(this.options.activeClass);
+            this.options.currentIndex = '';
         }
     };
     // jquery plugin
